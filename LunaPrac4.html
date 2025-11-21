@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Mini Web Project - Section Navigation">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Project Website</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth; /* Smooth scrolling */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f0eb;
+            color: #4b2e2e;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #8b5e3c;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        section {
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: auto;
+            display: none; /* Hide all sections by default */
+            transition: background 0.3s;
+        }
+
+        section.active {
+            display: block; /* Show the active section */
+        }
+
+        section:hover {
+            background: #f0e3db; /* subtle hover effect */
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            color: #5a2e2e;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+        }
+
+        input, textarea, button {
+            padding: 10px;
+            border: 1px solid #8b5e3c;
+            border-radius: 4px;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #8b5e3c; /* placeholder color change */
+        }
+
+        button {
+            background: #8b5e3c;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #a66d4d;
+        }
+
+        footer {
+            background: #4b2e2e;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+        }
+
+        .timestamp {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #6b3e3e;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>My Mini Project</h1>
+        <nav>
+            <ul>
+                <li><a onclick="showSection('home')">Home</a></li>
+                <li><a onclick="showSection('about')">About</a></li>
+                <li><a onclick="showSection('contact')">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="active">
+        <h2 id="greeting"></h2>
+        <p>Welcome to our mini-project website! This is the home section where visitors are greeted dynamically based on the time of day.</p>
+        <p class="timestamp" id="visit-time"></p>
+    </section>
+
+    <section id="about">
+        <h2>About Us</h2>
+        <p>We build simple yet elegant websites using HTML, CSS, and JavaScript. This project demonstrates a combined single-page website with multiple sections and interactive features.</p>
+        <p>Our mission is to provide clear and user-friendly web experiences for all visitors.</p>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <form onsubmit="return validateForm()">
+            <input type="text" id="name" placeholder="Your Name">
+            <input type="email" id="email" placeholder="Email Address">
+            <textarea id="message" placeholder="Your Message"></textarea>
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 My Mini Project</p>
+    </footer>
+
+    <script>
+        const greetingEl = document.getElementById("greeting");
+        const hour = new Date().getHours();
+        let greetingText = "";
+        if (hour < 12) greetingText = "Good Morning!";
+        else if (hour < 18) greetingText = "Good Afternoon!";
+        else greetingText = "Good Evening!";
+        greetingEl.textContent = greetingText;
+
+        const visitTimeEl = document.getElementById("visit-time");
+        const now = new Date();
+        visitTimeEl.textContent = `Last visit: ${now.toLocaleString()}`;
+
+        function validateForm() {
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            if (name === "" || email === "") {
+                alert("Please fill in all required fields.");
+                return false;
+            }
+            alert("Form submitted successfully!");
+            return true;
+        }
+
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(sec => sec.classList.remove('active')); // hide all
+            document.getElementById(sectionId).classList.add('active'); // show selected
+        }
+    </script>
+
+</body>
+</html>
